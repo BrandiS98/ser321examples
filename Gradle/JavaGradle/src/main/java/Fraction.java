@@ -42,10 +42,35 @@ public class Fraction {
          // create a new instance
          // Fraction *frac = [[Fraction alloc] init];
          Fraction frac = new Fraction();
+         if(args.length == 0){
+             // set the values
+            frac.setNumerator(1);
+            frac.setDenominator(3);
+         } else if(args.length ==1){
+            int argDenom = 0;
+            int argNum = 0;
 
-         // set the values
-         frac.setNumerator(1);
-         frac.setDenominator(3);
+            try{
+               argDenom = Integer.parseInt(args[0]);
+               argNum = 1;
+            } catch (Exception e) {
+               System.out.println("Parameters must be integers.");
+               System.exit(1);
+            }
+         } else if(args.length == 2) {
+            int argDenom = 0;
+            int argNum = 0;
+
+            try{
+               argDenom = Integer.parseInt(args[0]);
+               argNum = Integer.parseInt(args[1]);
+            } catch (Exception e) {
+               System.out.println("Parameters must be integers.");
+               System.exit(1);
+            }
+         }
+         
+
 
          // print it
          System.out.print("The fraction is: ");
