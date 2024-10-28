@@ -25,7 +25,6 @@ import java.util.Random;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.nio.charset.Charset;
-import org.json.*;
 
 class WebServer {
   public static void main(String args[]) {
@@ -220,24 +219,15 @@ class WebServer {
              // TODO: Include error handling here with a correct error code and
              // a response that makes sense
            }catch(NumberFormatException e){
-              if(Integer.toString(num1).equals("\n") || Integer.toString(num2).equals("\n")){
                  builder.append("HTTP/1.1 400 Bad Request\n");
                  builder.append("Content-Type: text/html; charset=utf-8\n");
                   builder.append("\n");
                   builder.append("Missing data.");
-              }
-              else if(num1 != (int)num1 || num2 != (int)num2){
+           }catch(NumberFormatException e){
                 builder.append("HTTP/1.1 406 Not Acceptable\n");
                 builder.append("Content-Type: text/html; charset=utf-8\n");
                 builder.append("\n");
                 builder.append("Data must be integers.");
-              }
-              else{
-                builder.append("HTTP/1.1 400 Bad Request\n");
-                builder.append("Content-Type: text/html; charset=utf-8\n");
-                builder.append("\n");
-                builder.append("Invalid input.");
-              }
            }
 
         } else if (request.contains("github?")) {
@@ -260,47 +250,11 @@ class WebServer {
           builder.append("Check the todos mentioned in the Java source file");
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
-       
-           try{
-               JSONArray jArray = new JSONArray(json);
-                builder.append("HTTP/1.1 200 OK\n");
-           for(int i=0; i<jArray.length(); i++){
-              JSONObject jOb = jArray.getJSONObject(i);
-              builder.append("Content-Type: text/html; charset=utf-8\n");
-              builder.append("ID: " + jOb.get("id"));
-              builder.append("Full Name: " + jOb.get("full_name"));
-              builder.append("Owner: " + jOb.owner.get("login"));
-               builder.append("\n");
-              
-           }
-          }catch(JSONException e){
-              builder.append("HTTP/1.1 404 Not Found\n");
-                builder.append("Content-Type: text/html; charset=utf-8\n");
-                builder.append("\n");
-                builder.append("JSON not found");
-          }
-        }else if (request.contains("tellme?","")){
-             //takes 2 strings and displays them
-           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-          // extract path parameters
-          query_pairs = splitQuery(request.replace("tellme?", ""));
            
-         String st1 = query_pairs.get("st1");
-         String st2 = query_pairs.get("st2");
-         if(st1.isEmpty() || st2.isEmpty()){
-                builder.append("HTTP/1.1 406 Not Acceptable\n");
-                builder.append("Content-Type: text/html; charset=utf-8\n");
-                builder.append("\n");
-                builder.append("Inputs may not be blank strings.");
-         }
-          else{
-               builder.append("HTTP/1.1 200 OK\n");
-               builder.append("Content-Type: text/html; charset=utf-8\n");
-                builder.append("\n");
-                builder.append("You told me: " +st1 + " " + st2 );
-           }
+       
+           
         }else if(request.contains("gimmiecats?")){
-           query_pairs = splitQuery(request.replace("gimmiecats?", ""));
+          Map<String, String> query_pairs = splitQuery(request.replace("gimmiecats?", ""));
            try{
               String cname = query_pairs.get("cname");
               Integer num = Integer.parseInt(query_pairs.get("num"));
