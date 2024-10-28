@@ -220,7 +220,7 @@ class WebServer {
              // TODO: Include error handling here with a correct error code and
              // a response that makes sense
            }catch(NumberFormatException e){
-              if(Integer.toString(num1).equals("") || Integer.toString(num2).equals("")){
+              if(Integer.toString(num1).equals("\n") || Integer.toString(num2).equals("\n")){
                  builder.append("HTTP/1.1 400 Bad Request\n");
                  builder.append("Content-Type: text/html; charset=utf-8\n");
                   builder.append("\n");
@@ -268,8 +268,8 @@ class WebServer {
               JSONObject jOb = jArray.getJSONObject(i);
               builder.append("Content-Type: text/html; charset=utf-8\n");
               builder.append("ID: " + jOb.get("id"));
-              builder.append("Full Name: " + jOb.get("full_name");
-              builder.append("Owner: " + jOb.owner.get("login");
+              builder.append("Full Name: " + jOb.get("full_name"));
+              builder.append("Owner: " + jOb.owner.get("login"));
                builder.append("\n");
               
            }
@@ -279,7 +279,7 @@ class WebServer {
                 builder.append("\n");
                 builder.append("JSON not found");
           }
-           else if (request.contains("tellme?",""){
+        }else if (request.contains("tellme?","")){
              //takes 2 strings and displays them
            Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           // extract path parameters
@@ -299,9 +299,7 @@ class WebServer {
                 builder.append("\n");
                 builder.append("You told me: " +st1 + " " + st2 );
            }
-           
-        }
-        else if(request.contains("gimmiecats?")){
+        }else if(request.contains("gimmiecats?")){
            query_pairs = splitQuery(request.replace("gimmiecats?", ""));
            try{
               String cname = query_pairs.get("cname");
@@ -313,46 +311,37 @@ class WebServer {
                 builder.append("Content-Type: text/html; charset=utf-8\n");
                 builder.append("\n");
                 builder.append(new String(readFileInBytes(file)));
-              }
-              else if(cname.equalsIgnoreCase("muffin") && num == 2){
+              }else if(cname.equalsIgnoreCase("muffin") && num == 2){
                  File file = new File("www/muffin2.html");
                 builder.append("HTTP/1.1 200 OK\n");
                 builder.append("Content-Type: text/html; charset=utf-8\n");
                 builder.append("\n");
                 builder.append(new String(readFileInBytes(file)));
-              }
-              else if(cname.equalsIgnoreCase("tangerine") && num == 1){
+              }else if(cname.equalsIgnoreCase("tangerine") && num == 1){
                  File file = new File("www/beans1.html");
                 builder.append("HTTP/1.1 200 OK\n");
                 builder.append("Content-Type: text/html; charset=utf-8\n");
                 builder.append("\n");
                 builder.append(new String(readFileInBytes(file)));
-              }
-              else if(cname.equalsIgnoreCase("tangerine") && num == 2){
+              }else if(cname.equalsIgnoreCase("tangerine") && num == 2){
                  File file = new File("www/beans2.html");
                 builder.append("HTTP/1.1 200 OK\n");
                 builder.append("Content-Type: text/html; charset=utf-8\n");
                 builder.append("\n");
                 builder.append(new String(readFileInBytes(file)));
-              }
-              else{
+              }else{
                  builder.append("HTTP/1.1 406 Not Acceptable\n");
                 builder.append("Content-Type: text/html; charset=utf-8\n");
                 builder.append("\n");
                 builder.append("Data must be integers.");
-              }
-
-              
+              }  
             }catch(NumberFormatException e){
                builder.append("HTTP/1.1 406 Not Acceptable\n");
                 builder.append("Content-Type: text/html; charset=utf-8\n");
                 builder.append("\n");
                  builder.append("Invalid entry.");
            }
-        }
-           
-
-        } else {
+        }else {
           // if the request is not recognized at all
 
           builder.append("HTTP/1.1 400 Bad Request\n");
