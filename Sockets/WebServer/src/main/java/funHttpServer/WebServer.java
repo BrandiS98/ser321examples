@@ -250,10 +250,31 @@ class WebServer {
           builder.append("Check the todos mentioned in the Java source file");
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
-         
-           
-       
-           
+         Map<String,String> jsonMap = new HashMap<String,String>();
+         String[] pairs = json.split(",");
+         for(int i=0; i<pairs.length();i++){
+            String dataPair = pairs[i];
+            String key = dataPair.split(":");
+            if(key[0].equals("id")){
+             builder.append("HTTP/1.1 200 OK\n");
+             builder.append("Content-Type: text/html; charset=utf-8\n");
+             builder.append("\n");
+             builder.append("ID:" + key[1]);
+            }
+            if(key[0].equals("full_name")){
+             builder.append("HTTP/1.1 200 OK\n");
+             builder.append("Content-Type: text/html; charset=utf-8\n");
+             builder.append("\n");
+             builder.append("Full Name:" + key[1]);
+            }
+            if(key[0].equals("login")){
+             builder.append("HTTP/1.1 200 OK\n");
+             builder.append("Content-Type: text/html; charset=utf-8\n");
+             builder.append("\n");
+             builder.append("Login:" + key[1]);
+            }
+         }
+             
         }else if(request.contains("gimmiecats?")){
           Map<String, String> query_pairs = splitQuery(request.replace("gimmiecats?", ""));
            try{
