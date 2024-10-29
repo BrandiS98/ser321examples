@@ -252,7 +252,7 @@ class WebServer {
           // response based on what the assignment document asks for
          Map<String,String> jsonMap = new HashMap<String,String>();
          String[] pairs = json.split(",");
-         for(int i=0; i<pairs.length();i++){
+         for(int i=0; i<pairs.length;i++){
             String dataPair = pairs[i];
             String[] key = dataPair.split(":");
             if(key[0].equals("id")){
