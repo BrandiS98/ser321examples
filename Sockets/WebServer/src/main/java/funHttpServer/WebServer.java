@@ -227,8 +227,8 @@ class WebServer {
                 builder.append("HTTP/1.1 406 Not Acceptable\n");
                 builder.append("Content-Type: text/html; charset=utf-8\n");
                 builder.append("\n");
-                builder.append("Data must be integers.");*/
-           }
+                builder.append("Data must be integers.");
+           }*/
 
         } else if (request.contains("github?")) {
           // pulls the query from the request and runs it with GitHub's REST API
